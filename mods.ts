@@ -1,5 +1,5 @@
 // Import some packages
-import "https://deno.land/x/dotenv/load.ts"
+import "https://deno.land/x/dotenv@v3.2.2/load.ts"
 import { Harmony, Oak } from "./deps.ts";
 import CCommand from "./classes/customCommand.ts";
 
