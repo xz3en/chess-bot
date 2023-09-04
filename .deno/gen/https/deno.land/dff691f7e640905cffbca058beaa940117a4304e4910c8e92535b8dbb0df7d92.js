@@ -1,8 +1,0 @@
-import { UserFlags } from '../types/userFlags.ts';
-import { BitField } from './bitfield.ts';
-export class UserFlagsManager extends BitField {
-    constructor(bits){
-        super(UserFlags, bits ?? 0);
-    }
-}
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvaGFybW9ueUB2Mi45LjAvc3JjL3V0aWxzL3VzZXJGbGFncy50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBVc2VyRmxhZ3MgfSBmcm9tICcuLi90eXBlcy91c2VyRmxhZ3MudHMnXG5pbXBvcnQgeyBCaXRGaWVsZCwgQml0RmllbGRSZXNvbHZhYmxlIH0gZnJvbSAnLi9iaXRmaWVsZC50cydcblxuZXhwb3J0IGNsYXNzIFVzZXJGbGFnc01hbmFnZXIgZXh0ZW5kcyBCaXRGaWVsZCB7XG4gIGNvbnN0cnVjdG9yKGJpdHM6IEJpdEZpZWxkUmVzb2x2YWJsZSB8IHVuZGVmaW5lZCkge1xuICAgIHN1cGVyKFVzZXJGbGFncywgYml0cyA/PyAwKVxuICB9XG59XG4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsU0FBUyxTQUFTLFFBQVEsd0JBQXVCO0FBQ2pELFNBQVMsUUFBUSxRQUE0QixnQkFBZTtBQUU1RCxPQUFPLE1BQU0seUJBQXlCO0lBQ3BDLFlBQVksSUFBb0MsQ0FBRTtRQUNoRCxLQUFLLENBQUMsV0FBVyxRQUFRO0lBQzNCO0FBQ0YsQ0FBQyJ9
