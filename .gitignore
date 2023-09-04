@@ -1,5 +1,4 @@
 deno.lock
 .vscode
 .env
-.deno
-.deno/*.*
+.deno/
