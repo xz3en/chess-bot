@@ -303,10 +303,14 @@ export default class Chess extends CCommand {
 
                 const opponent = await client.users.fetch(ctx.data.options[0].options[0].value);
     
-                const gameId = String(Math.round((date.getTime() * (Number(ctx.member.user.id) + Number(opponent.id)))));
+                const newGameId = String(Math.round((date.getTime() * (Number(ctx.member.user.id) + Number(opponent.id)))) * 1000);
                 
-                userGames.set(ctx.member.user.id,gameId);
-                userGames.set(opponent.id,gameId);
+                userGames.set(ctx.member.user.id,newGameId);
+                userGames.set(opponent.id,newGameId);
+
+                const gameId = userGames.get(ctx.member.user.id);
+
+                if (!gameId) return;
 
                 const game = games.get(gameId);
                 if (!game) {
