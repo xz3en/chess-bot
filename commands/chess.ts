@@ -296,7 +296,11 @@ export default class Chess extends CCommand {
                 console.log(ctx.data);
 
                 if (!ctx.member || !ctx.data || !("options" in ctx.data)) return;
-                if (!ctx.data.options[0] || !("id" in ctx.data.options[0])) return;
+                if (!ctx.data.options[0] || !ctx.data.options[0].options || !ctx.data.options[0].options[0]) return;
+
+                const opponent = await client.users.fetch(ctx.data.options[0].options[0].value);
+
+                console.log(opponent);
     
                 //const opponent = await client.users.fetch(ctx.data.options[0].id)
                 
