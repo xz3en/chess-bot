@@ -27,7 +27,7 @@ const client = new Harmony.Client({
 async function setupCommands() {
     const commandObjects = []
     for (const file of Deno.readDirSync("commands")) {
-        const commandObject: CCommand = new (await import(`./commands/${file.name}`)).default;
+        const commandObject: CCommand = new (await import(`./commands/${file.name}`)).default(client);
         
         commands.set(commandObject.name,commandObject);
 

@@ -102,41 +102,6 @@ const secondaryColor = "#7c955b"; // Green
 const fileLetters = "abcdefgh";
 
 const games: Map<string,Game> = new Map<string,Game>;
-const subcommandFunctions: Map<string,(ctx: Harmony.Interaction) => Promise<void>> = new Map<string,(ctx: Harmony.Interaction) => Promise<void>>;
-
-subcommandFunctions.set(
-    "play",
-    async (ctx: Harmony.Interaction) => {
-        if (!ctx.member || !ctx.data || !("options" in ctx.data)) return;
-        if (!ctx.data.options[0]) return;
-        
-        console.log(ctx.data)
-        const game = games.get(ctx.member.user.id);
-        if (!game) {
-            await createGame(ctx.member.user.id);
-            const selfFunc = subcommandFunctions.get("play");
-            if (selfFunc) {
-                return selfFunc(ctx);
-            }
-        }
-        if (!game) return;
-        await game.updateBoard();
-        ctx.respond({
-            files: [
-                new Harmony.MessageAttachment(
-                    "board.png",
-                    new Blob([game.canvas.canvas.toBuffer()])
-                )
-            ],
-            embeds: [
-                new Harmony.Embed()
-                    .setTitle("Chess game")
-                    .setImage("attachment://board.png")
-            ],
-            components: new Harmony.MessageComponents(...messageComponents)
-        });
-    }
-);
 
 // Functions
 
@@ -320,10 +285,54 @@ export default class Chess extends CCommand {
             ]
         }
     ]
+
+    subcommandFunctions: Map<string,(ctx: Harmony.Interaction) => Promise<void>> = new Map<string,(ctx: Harmony.Interaction) => Promise<void>>;
+    
+    constructor(public client: Harmony.Client) {
+        super(client);
+        this.subcommandFunctions.set(
+            "play",
+            async (ctx: Harmony.Interaction) => {
+                console.log(ctx.data);
+
+                if (!ctx.member || !ctx.data || !("options" in ctx.data)) return;
+                if (!ctx.data.options[0] || !("id" in ctx.data.options[0])) return;
+    
+                //const opponent = await client.users.fetch(ctx.data.options[0].id)
+                
+                console.log(ctx.data)
+                const game = games.get(ctx.member.user.id);
+                if (!game) {
+                    await createGame(ctx.member.user.id);
+                    const selfFunc = this.subcommandFunctions.get("play");
+                    if (selfFunc) {
+                        return selfFunc(ctx);
+                    }
+                }
+                if (!game) return;
+                await game.updateBoard();
+                ctx.respond({
+                    files: [
+                        new Harmony.MessageAttachment(
+                            "board.png",
+                            new Blob([game.canvas.canvas.toBuffer()])
+                        )
+                    ],
+                    embeds: [
+                        new Harmony.Embed()
+                            .setTitle("Chess game")
+                            .setImage("attachment://board.png")
+                    ],
+                    components: new Harmony.MessageComponents(...messageComponents)
+                });
+            }
+        );
+    }
+
     async execute(ctx: Harmony.Interaction) {
         if (!ctx.data || !("options" in ctx.data) || !ctx.data.options[0]) return;
 
-        const func = subcommandFunctions.get(ctx.data.options[0].name);
+        const func = this.subcommandFunctions.get(ctx.data.options[0].name);
 
         if (!func) return;
         

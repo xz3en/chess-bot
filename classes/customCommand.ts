@@ -5,6 +5,8 @@ export default class CCommand {
     description?: string;
     options: Harmony.SlashCommandOption[] = [];
 
+    constructor(public client: Harmony.Client){}
+
     execute(_ctx: Harmony.Interaction) {
 
     }
