@@ -1,5 +1,5 @@
 {
     "tasks": {
-        "run": "deno run --allow-all --watch=*.ts --lock=deno.lock --lock-write mods.ts"
+        "run": "deno run --allow-all --watch --lock=deno.lock --lock-write mods.ts"
     }
 }
