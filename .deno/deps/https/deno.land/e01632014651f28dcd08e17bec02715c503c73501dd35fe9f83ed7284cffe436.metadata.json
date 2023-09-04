@@ -1,23 +1,23 @@
 {
   "headers": {
-    "date": "Mon, 04 Sep 2023 14:24:19 GMT",
-    "via": "http/2 edgeproxy-h",
-    "server": "deno/gcp-us-west1",
-    "x-frame-options": "DENY",
-    "location": "/x/dotenv@v3.2.2/load.ts",
-    "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
-    "cross-origin-embedder-policy": "same-origin",
-    "access-control-allow-origin": "*",
-    "cross-origin-resource-policy": "same-origin",
-    "x-content-type-options": "nosniff",
-    "cross-origin-opener-policy": "same-origin",
-    "vary": "accept",
     "referrer-policy": "strict-origin-when-cross-origin",
-    "x-deno-warning": "Implicitly using latest version (v3.2.2) for https://deno.land/x/dotenv/load.ts"
+    "access-control-allow-origin": "*",
+    "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+    "x-deno-warning": "Implicitly using latest version (v3.2.2) for https://deno.land/x/dotenv/load.ts",
+    "via": "http/2 edgeproxy-h",
+    "cross-origin-embedder-policy": "same-origin",
+    "cross-origin-opener-policy": "same-origin",
+    "x-content-type-options": "nosniff",
+    "vary": "accept",
+    "location": "/x/dotenv@v3.2.2/load.ts",
+    "date": "Mon, 04 Sep 2023 16:20:17 GMT",
+    "cross-origin-resource-policy": "same-origin",
+    "x-frame-options": "DENY",
+    "server": "deno/gcp-us-west1"
   },
   "url": "https://deno.land/x/dotenv/load.ts",
   "now": {
-    "secs_since_epoch": 1693837460,
-    "nanos_since_epoch": 76469142
+    "secs_since_epoch": 1693844417,
+    "nanos_since_epoch": 903188074
   }
 }
