@@ -1,4 +1,5 @@
 deno.lock
+lock.json
 .vscode/
 .env
 .deno/
