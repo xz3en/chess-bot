@@ -1,0 +1,2 @@
+export * from "https://deno.land/std@0.118.0/io/buffer.ts";
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvcmVkaXNAdjAuMjUuMS92ZW5kb3IvaHR0cHMvZGVuby5sYW5kL3N0ZC9pby9idWZmZXIudHMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSBcImh0dHBzOi8vZGVuby5sYW5kL3N0ZEAwLjExOC4wL2lvL2J1ZmZlci50c1wiO1xuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQWMsNkNBQTZDIn0=

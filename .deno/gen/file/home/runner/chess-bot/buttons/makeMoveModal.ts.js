@@ -1,0 +1,8 @@
+export default async function execute(ctx) {
+    console.log(ctx.data);
+    await ctx.respond({
+        content: "nuh uh",
+        ephemeral: true
+    });
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpbGU6Ly8vaG9tZS9ydW5uZXIvY2hlc3MtYm90L2J1dHRvbnMvbWFrZU1vdmVNb2RhbC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBIYXJtb255IH0gZnJvbSBcIi4uL2RlcHMudHNcIjtcblxuZXhwb3J0IGRlZmF1bHQgYXN5bmMgZnVuY3Rpb24gZXhlY3V0ZShjdHg6IEhhcm1vbnkuSW50ZXJhY3Rpb24pIHtcbiAgICBjb25zb2xlLmxvZyhjdHguZGF0YSk7XG5cbiAgICBhd2FpdCBjdHgucmVzcG9uZCh7XG4gICAgICAgIGNvbnRlbnQ6IFwibnVoIHVoXCIsXG4gICAgICAgIGVwaGVtZXJhbDogdHJ1ZVxuICAgIH0pXG59Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBLGVBQWUsZUFBZSxRQUFRLEdBQXdCLEVBQUU7SUFDNUQsUUFBUSxHQUFHLENBQUMsSUFBSSxJQUFJO0lBRXBCLE1BQU0sSUFBSSxPQUFPLENBQUM7UUFDZCxTQUFTO1FBQ1QsV0FBVyxJQUFJO0lBQ25CO0FBQ0osQ0FBQyJ9

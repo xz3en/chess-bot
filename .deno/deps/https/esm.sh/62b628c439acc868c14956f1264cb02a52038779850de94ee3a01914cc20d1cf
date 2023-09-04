@@ -1,0 +1,4 @@
+export { Mixin, mix } from './mixins.d.ts';
+export { settings } from './settings.d.ts';
+export { decorate } from './decorator.d.ts';
+export { hasMixin } from './mixin-tracking.d.ts';

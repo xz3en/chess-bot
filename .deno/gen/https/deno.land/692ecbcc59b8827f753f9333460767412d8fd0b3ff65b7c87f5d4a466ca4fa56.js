@@ -1,0 +1,6 @@
+import { init } from "./src/canvas.ts";
+const canvas = await init();
+export { canvas };
+export default canvas;
+export * from "./src/canvas.ts";
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvY2FudmFzQHYxLjQuMS9tb2QudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgaW5pdCB9IGZyb20gXCIuL3NyYy9jYW52YXMudHNcIjtcblxuY29uc3QgY2FudmFzID0gYXdhaXQgaW5pdCgpO1xuXG5leHBvcnQgeyBjYW52YXMgfTtcbmV4cG9ydCBkZWZhdWx0IGNhbnZhcztcbmV4cG9ydCAqIGZyb20gXCIuL3NyYy9jYW52YXMudHNcIjtcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxTQUFTLElBQUksUUFBUSxrQkFBa0I7QUFFdkMsTUFBTSxTQUFTLE1BQU07QUFFckIsU0FBUyxNQUFNLEdBQUc7QUFDbEIsZUFBZSxPQUFPO0FBQ3RCLGNBQWMsa0JBQWtCIn0=

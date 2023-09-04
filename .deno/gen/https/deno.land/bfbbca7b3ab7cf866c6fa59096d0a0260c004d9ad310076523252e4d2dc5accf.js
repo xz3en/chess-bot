@@ -1,0 +1,11 @@
+/**
+ * Purpose of this is to expose raw CanvasKit with manual initialization
+ * to only load WASM when needed.
+ */ import * as lib from "./lib.js";
+async function init(options) {
+    return await lib.CanvasKitInit(options ?? {});
+}
+export { init };
+export default init;
+export * from "./types.ts";
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvY2FudmFzQHYxLjQuMS9zcmMvY2FudmFza2l0LnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogUHVycG9zZSBvZiB0aGlzIGlzIHRvIGV4cG9zZSByYXcgQ2FudmFzS2l0IHdpdGggbWFudWFsIGluaXRpYWxpemF0aW9uXG4gKiB0byBvbmx5IGxvYWQgV0FTTSB3aGVuIG5lZWRlZC5cbiAqL1xuaW1wb3J0ICogYXMgbGliIGZyb20gXCIuL2xpYi5qc1wiO1xuaW1wb3J0IHsgQ2FudmFzS2l0IH0gZnJvbSBcIi4vdHlwZXMudHNcIjtcblxuYXN5bmMgZnVuY3Rpb24gaW5pdChvcHRpb25zPzogYW55KTogUHJvbWlzZTxDYW52YXNLaXQ+IHtcbiAgcmV0dXJuIGF3YWl0IGxpYi5DYW52YXNLaXRJbml0KG9wdGlvbnMgPz8ge30pO1xufVxuXG5leHBvcnQgeyBpbml0IH07XG5leHBvcnQgZGVmYXVsdCBpbml0O1xuZXhwb3J0ICogZnJvbSBcIi4vdHlwZXMudHNcIjtcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7O0NBR0MsR0FDRCxZQUFZLFNBQVMsV0FBVztBQUdoQyxlQUFlLEtBQUssT0FBYSxFQUFzQjtJQUNyRCxPQUFPLE1BQU0sSUFBSSxhQUFhLENBQUMsV0FBVyxDQUFDO0FBQzdDO0FBRUEsU0FBUyxJQUFJLEdBQUc7QUFDaEIsZUFBZSxLQUFLO0FBQ3BCLGNBQWMsYUFBYSJ9

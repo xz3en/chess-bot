@@ -1,0 +1,25 @@
+/** Utility class to extract data from a Snowflake (Discord ID) */ export class Snowflake {
+    id;
+    constructor(id){
+        this.id = id;
+    }
+    get snowflake() {
+        return BigInt.asUintN(64, BigInt(this.id));
+    }
+    get timestamp() {
+        return Number((this.snowflake >> 22n) + 1420070400000n);
+    }
+    get workerID() {
+        return Number((this.snowflake & 0x3e0000n) >> 17n);
+    }
+    get processID() {
+        return Number((this.snowflake & 0x1f00n) >> 12n);
+    }
+    get increment() {
+        return Number(this.snowflake & 0xfffn);
+    }
+    get toString() {
+        return this.id;
+    }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvaGFybW9ueUB2Mi45LjAvc3JjL3V0aWxzL3Nub3dmbGFrZS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKiogVXRpbGl0eSBjbGFzcyB0byBleHRyYWN0IGRhdGEgZnJvbSBhIFNub3dmbGFrZSAoRGlzY29yZCBJRCkgKi9cbmV4cG9ydCBjbGFzcyBTbm93Zmxha2Uge1xuICBpZDogc3RyaW5nXG5cbiAgY29uc3RydWN0b3IoaWQ6IHN0cmluZykge1xuICAgIHRoaXMuaWQgPSBpZFxuICB9XG5cbiAgZ2V0IHNub3dmbGFrZSgpOiBiaWdpbnQge1xuICAgIHJldHVybiBCaWdJbnQuYXNVaW50Tig2NCwgQmlnSW50KHRoaXMuaWQpKVxuICB9XG5cbiAgZ2V0IHRpbWVzdGFtcCgpOiBudW1iZXIge1xuICAgIHJldHVybiBOdW1iZXIoKHRoaXMuc25vd2ZsYWtlID4+IDIybikgKyAxNDIwMDcwNDAwMDAwbilcbiAgfVxuXG4gIGdldCB3b3JrZXJJRCgpOiBudW1iZXIge1xuICAgIHJldHVybiBOdW1iZXIoKHRoaXMuc25vd2ZsYWtlICYgMHgzZTAwMDBuKSA+PiAxN24pXG4gIH1cblxuICBnZXQgcHJvY2Vzc0lEKCk6IG51bWJlciB7XG4gICAgcmV0dXJuIE51bWJlcigodGhpcy5zbm93Zmxha2UgJiAweDFmMDBuKSA+PiAxMm4pXG4gIH1cblxuICBnZXQgaW5jcmVtZW50KCk6IG51bWJlciB7XG4gICAgcmV0dXJuIE51bWJlcih0aGlzLnNub3dmbGFrZSAmIDB4ZmZmbilcbiAgfVxuXG4gIGdldCB0b1N0cmluZygpOiBzdHJpbmcge1xuICAgIHJldHVybiB0aGlzLmlkXG4gIH1cbn1cbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxnRUFBZ0UsR0FDaEUsT0FBTyxNQUFNO0lBQ1gsR0FBVTtJQUVWLFlBQVksRUFBVSxDQUFFO1FBQ3RCLElBQUksQ0FBQyxFQUFFLEdBQUc7SUFDWjtJQUVBLElBQUksWUFBb0I7UUFDdEIsT0FBTyxPQUFPLE9BQU8sQ0FBQyxJQUFJLE9BQU8sSUFBSSxDQUFDLEVBQUU7SUFDMUM7SUFFQSxJQUFJLFlBQW9CO1FBQ3RCLE9BQU8sT0FBTyxDQUFDLElBQUksQ0FBQyxTQUFTLElBQUksR0FBRyxJQUFJLGNBQWM7SUFDeEQ7SUFFQSxJQUFJLFdBQW1CO1FBQ3JCLE9BQU8sT0FBTyxDQUFDLElBQUksQ0FBQyxTQUFTLEdBQUcsU0FBUyxLQUFLLEdBQUc7SUFDbkQ7SUFFQSxJQUFJLFlBQW9CO1FBQ3RCLE9BQU8sT0FBTyxDQUFDLElBQUksQ0FBQyxTQUFTLEdBQUcsT0FBTyxLQUFLLEdBQUc7SUFDakQ7SUFFQSxJQUFJLFlBQW9CO1FBQ3RCLE9BQU8sT0FBTyxJQUFJLENBQUMsU0FBUyxHQUFHLE1BQU07SUFDdkM7SUFFQSxJQUFJLFdBQW1CO1FBQ3JCLE9BQU8sSUFBSSxDQUFDLEVBQUU7SUFDaEI7QUFDRixDQUFDIn0=

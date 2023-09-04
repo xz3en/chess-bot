@@ -1,0 +1,35 @@
+{
+  "headers": {
+    "last-modified": "Wed, 02 Aug 2023 11:26:36 GMT",
+    "x-amz-cf-id": "MlgOYYavbk7QTCC-Uz9xBSY42bRizoTy1LVNgednaa82n0p01_ey7Q==",
+    "x-amz-cf-pop": "SEA73-P3",
+    "content-length": "3858",
+    "x-cache": "Miss from cloudfront",
+    "cross-origin-resource-policy": "same-origin",
+    "vary": "Accept-Encoding, Origin",
+    "cross-origin-embedder-policy": "same-origin",
+    "date": "Mon, 04 Sep 2023 14:24:23 GMT",
+    "via": "http/2 edgeproxy-h",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "content-type": "application/typescript; charset=utf-8",
+    "x-amz-server-side-encryption": "AES256",
+    "server-timing": "fetchSource;dur=722",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+    "access-control-allow-origin": "*",
+    "accept-ranges": "bytes",
+    "x-amz-version-id": "mkszlqdRB6TXpE6h1kZ6CwXEuaVG8MQE",
+    "x-frame-options": "DENY",
+    "cross-origin-opener-policy": "same-origin",
+    "x-amz-replication-status": "COMPLETED",
+    "x-content-type-options": "nosniff",
+    "cache-control": "public, max-age=31536000, immutable",
+    "etag": "\"606c1acc88dcdefabdade67fa846b663\"",
+    "server": "deno/gcp-us-west1",
+    "strict-transport-security": "max-age=63072000; includeSubDomains; preload"
+  },
+  "url": "https://deno.land/x/harmony@v2.9.0/src/managers/guildChannels.ts",
+  "now": {
+    "secs_since_epoch": 1693837463,
+    "nanos_since_epoch": 136274950
+  }
+}
