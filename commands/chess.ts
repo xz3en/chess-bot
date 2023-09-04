@@ -83,6 +83,8 @@ export class Game {
 
 // Variables
 
+const date = new Date();
+
 const messageComponents: Harmony.MessageComponentData[] = [
     {
         type: Harmony.MessageComponentType.ACTION_ROW,
@@ -102,6 +104,7 @@ const secondaryColor = "#7c955b"; // Green
 const fileLetters = "abcdefgh";
 
 const games: Map<string,Game> = new Map<string,Game>;
+const userGames: Map<string,string> = new Map<string,string>;
 
 // Functions
 
@@ -265,6 +268,8 @@ async function createGame(id: string) {
     await game.updateBoard();
 
     games.set(id,game);
+
+    console.log("Created a game with id " + id);
 }
 
 export default class Chess extends CCommand {
@@ -293,21 +298,19 @@ export default class Chess extends CCommand {
         this.subcommandFunctions.set(
             "play",
             async (ctx: Harmony.Interaction) => {
-                console.log(ctx.data);
-
                 if (!ctx.member || !ctx.data || !("options" in ctx.data)) return;
                 if (!ctx.data.options[0] || !ctx.data.options[0].options || !ctx.data.options[0].options[0]) return;
 
                 const opponent = await client.users.fetch(ctx.data.options[0].options[0].value);
-
-                console.log(opponent);
     
-                //const opponent = await client.users.fetch(ctx.data.options[0].id)
+                const gameId = String((date.getTime() * (Number(ctx.member.user.id) + Number(opponent.id))) / 1000);
                 
-                console.log(ctx.data)
-                const game = games.get(ctx.member.user.id);
+                userGames.set(ctx.member.user.id,gameId);
+                userGames.set(opponent.id,gameId);
+
+                const game = games.get(gameId);
                 if (!game) {
-                    await createGame(ctx.member.user.id);
+                    await createGame(gameId);
                     const selfFunc = this.subcommandFunctions.get("play");
                     if (selfFunc) {
                         return selfFunc(ctx);
