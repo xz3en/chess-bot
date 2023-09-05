@@ -79,8 +79,8 @@ export class Game {
         square2.piece = square1.piece;
         square1.piece = undefined;
 
-        this.board.set(oldPosition,square1);
-        this.board.set(newPosition,square2);
+        //this.board.set(oldPosition,square1);
+        //this.board.set(newPosition,square2);
 
         this.updateMessage();
 
