@@ -41,12 +41,12 @@ export class Game {
     board: Map<string,Square> = new Map<string,Square>;
     canvas!: Board;
     
-    constructor(public message: Harmony.Message) {
+    constructor(public ctx: Harmony.Interaction) {
         this.canvas = new Board(600);
     }
 
     updateMessage() {
-        this.message.edit({
+        this.ctx.editResponse({
             files: [
                 new Harmony.MessageAttachment(
                     "board.png",
@@ -123,10 +123,10 @@ const fileLetters = "abcdefgh";
 
 // Functions
 
-async function createGame(id: string,message: Harmony.Message) {
+async function createGame(id: string,ctx: Harmony.Interaction) {
     if (games.get(id)) return;
 
-    const game = new Game(message);
+    const game = new Game(ctx);
     const squareSize = game.canvas.size / 8;
 
     for (let x = 0; x < 8; x++) {
@@ -334,7 +334,7 @@ export default class Chess extends CCommand {
                 const game = games.get(gameId);
                 if (!game) {
                     if (!ctx.message) return;
-                    await createGame(gameId,ctx.message);
+                    await createGame(gameId,ctx);
                     const selfFunc = this.subcommandFunctions.get("play");
                     if (selfFunc) {
                         return selfFunc(ctx);
