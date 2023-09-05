@@ -21,7 +21,6 @@ export default async function execute(ctx: Harmony.Interaction) {
     game.move(startPos,endPos);
 
     await ctx.respond({
-        content: "Moved a piece",
-        ephemeral: true
+        type: Harmony.InteractionResponseType.DEFERRED_CHANNEL_MESSAGE
     });
 }
