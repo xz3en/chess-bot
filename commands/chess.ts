@@ -68,7 +68,7 @@ export class Game {
         square.piece = piece;
     }
 
-    move(oldPosition: string,newPosition: string) {
+    async move(oldPosition: string,newPosition: string) {
         const square1 = this.board.get(oldPosition);
         const square2 = this.board.get(newPosition);
 
@@ -79,8 +79,10 @@ export class Game {
         square2.piece = square1.piece;
         square1.piece = undefined;
 
-        //this.board.set(oldPosition,square1);
-        //this.board.set(newPosition,square2);
+        this.board.set(oldPosition,square1);
+        this.board.set(newPosition,square2);
+
+        await this.updateBoard();
 
         this.updateMessage();
 
