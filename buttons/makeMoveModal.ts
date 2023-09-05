@@ -3,9 +3,12 @@ import { games, userGames } from "../mods.ts";
 
 export default async function execute(ctx: Harmony.Interaction) {
     if (!ctx.data) return;
+    if (!("components" in ctx.data) || (!ctx.data.components[0] && !ctx.data.components[1])) return;
+    if (!ctx.data.components[0].components[0] || !ctx.data.components[1].components[0]) return;
     if (!ctx.member) return;
 
-    console.log(ctx.data);
+    const startPos = ctx.data.components[0].components[0].value;
+    const endPos = ctx.data.components[1].components[0].value;
 
     const gameId = userGames.get(ctx.member.user.id);
 
@@ -15,10 +18,10 @@ export default async function execute(ctx: Harmony.Interaction) {
 
     if (!game) return;
 
-    //game.move(ctx.data)
+    game.move(startPos,endPos);
 
     await ctx.respond({
-        content: "nuh uh",
+        content: "Moved a piece",
         ephemeral: true
-    })
+    });
 }

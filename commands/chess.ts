@@ -41,8 +41,25 @@ export class Game {
     board: Map<string,Square> = new Map<string,Square>;
     canvas!: Board;
     
-    constructor() {
+    constructor(public message: Harmony.Message) {
         this.canvas = new Board(600);
+    }
+
+    updateMessage() {
+        this.message.edit({
+            files: [
+                new Harmony.MessageAttachment(
+                    "board.png",
+                    new Blob([this.canvas.canvas.toBuffer()])
+                )
+            ],
+            embeds: [
+                new Harmony.Embed()
+                    .setTitle("Chess game")
+                    .setImage("attachment://board.png")
+            ],
+            components: new Harmony.MessageComponents(...messageComponents)
+        });
     }
 
     updateSquare(position: string,piece?: Piece) {
@@ -106,10 +123,10 @@ const fileLetters = "abcdefgh";
 
 // Functions
 
-async function createGame(id: string) {
+async function createGame(id: string,message: Harmony.Message) {
     if (games.get(id)) return;
 
-    const game = new Game();
+    const game = new Game(message);
     const squareSize = game.canvas.size / 8;
 
     for (let x = 0; x < 8; x++) {
@@ -298,6 +315,10 @@ export default class Chess extends CCommand {
             async (ctx: Harmony.Interaction) => {
                 if (!ctx.member || !ctx.data || !("options" in ctx.data)) return;
                 if (!ctx.data.options[0] || !ctx.data.options[0].options || !ctx.data.options[0].options[0]) return;
+                
+                await ctx.respond({
+                    content: "Making your game"
+                });
 
                 const opponent = await client.users.fetch(ctx.data.options[0].options[0].value);
     
@@ -312,7 +333,8 @@ export default class Chess extends CCommand {
 
                 const game = games.get(gameId);
                 if (!game) {
-                    await createGame(gameId);
+                    if (!ctx.message) return;
+                    await createGame(gameId,ctx.message);
                     const selfFunc = this.subcommandFunctions.get("play");
                     if (selfFunc) {
                         return selfFunc(ctx);
@@ -320,20 +342,7 @@ export default class Chess extends CCommand {
                 }
                 if (!game) return;
                 await game.updateBoard();
-                ctx.respond({
-                    files: [
-                        new Harmony.MessageAttachment(
-                            "board.png",
-                            new Blob([game.canvas.canvas.toBuffer()])
-                        )
-                    ],
-                    embeds: [
-                        new Harmony.Embed()
-                            .setTitle("Chess game")
-                            .setImage("attachment://board.png")
-                    ],
-                    components: new Harmony.MessageComponents(...messageComponents)
-                });
+                game.updateMessage();
             }
         );
     }
