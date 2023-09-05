@@ -318,9 +318,11 @@ export default class Chess extends CCommand {
                 if (!ctx.member || !ctx.data || !("options" in ctx.data)) return;
                 if (!ctx.data.options[0] || !ctx.data.options[0].options || !ctx.data.options[0].options[0]) return;
                 
-                const ctx2 = await ctx.respond({
-                    content: "Making your game"
-                });
+                if (!ctx.responded) {
+                    await ctx.respond({
+                        content: "Making your game"
+                    });
+                }
 
                 const opponent = await client.users.fetch(ctx.data.options[0].options[0].value);
     
@@ -335,7 +337,7 @@ export default class Chess extends CCommand {
 
                 const game = games.get(gameId);
                 if (!game) {
-                    await createGame(gameId,ctx2);
+                    await createGame(gameId,ctx);
                     const selfFunc = this.subcommandFunctions.get("play");
                     if (selfFunc) {
                         return selfFunc(ctx);
