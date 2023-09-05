@@ -91,6 +91,13 @@ export class Game {
 
     async updateBoard() {
         for (const [_position,square] of this.board.entries()) {
+            if (!square.piece) {
+                let color = primaryColor;
+                if (square.color === "black"){
+                    color = secondaryColor;
+                }
+                this.canvas.context.fillRect(square.x,square.y,this.board.size / 8,this.board.size / 8);
+            }
             if (!square.piece) continue;
             const imagePath = `assets/pieces/${square.piece.color}/${square.piece.type}.png`;
             try {
