@@ -82,6 +82,8 @@ export class Game {
         this.board.set(oldPosition,square1);
         this.board.set(newPosition,square2);
 
+        this.updateMessage();
+
         return true
     }
 
@@ -316,7 +318,7 @@ export default class Chess extends CCommand {
                 if (!ctx.member || !ctx.data || !("options" in ctx.data)) return;
                 if (!ctx.data.options[0] || !ctx.data.options[0].options || !ctx.data.options[0].options[0]) return;
                 
-                await ctx.respond({
+                const ctx2 = await ctx.respond({
                     content: "Making your game"
                 });
 
@@ -333,8 +335,7 @@ export default class Chess extends CCommand {
 
                 const game = games.get(gameId);
                 if (!game) {
-                    if (!ctx.message) return;
-                    await createGame(gameId,ctx);
+                    await createGame(gameId,ctx2);
                     const selfFunc = this.subcommandFunctions.get("play");
                     if (selfFunc) {
                         return selfFunc(ctx);
