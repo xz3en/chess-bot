@@ -1,11 +1,14 @@
 // Import some packages
 import "https://deno.land/x/dotenv@v3.2.2/load.ts"
 import { Harmony, Oak } from "./deps.ts";
+import { Game } from "./commands/chess.ts";
 import CCommand from "./classes/customCommand.ts";
 
 // Webserver stuff
 const port = Number(Deno.env.get("PORT")) || 3000;
 const app = new Oak.Application();
+
+export const games: Map<string,Game> = new Map<string,Game>;
 
 // Command stuff
 

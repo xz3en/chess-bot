@@ -1,4 +1,5 @@
 import { Harmony, Canvas } from "../deps.ts";
+import { games } from "../mods.ts";
 import CCommand from "../classes/customCommand.ts";
 
 // Types
@@ -103,7 +104,6 @@ const primaryColor = "#eeeed5"; // White
 const secondaryColor = "#7c955b"; // Green
 const fileLetters = "abcdefgh";
 
-const games: Map<string,Game> = new Map<string,Game>;
 const userGames: Map<string,string> = new Map<string,string>;
 
 // Functions
