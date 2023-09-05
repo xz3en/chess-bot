@@ -1,5 +1,5 @@
 import { Harmony, Canvas } from "../deps.ts";
-import { games } from "../mods.ts";
+import { games, userGames } from "../mods.ts";
 import CCommand from "../classes/customCommand.ts";
 
 // Types
@@ -103,8 +103,6 @@ const messageComponents: Harmony.MessageComponentData[] = [
 const primaryColor = "#eeeed5"; // White
 const secondaryColor = "#7c955b"; // Green
 const fileLetters = "abcdefgh";
-
-const userGames: Map<string,string> = new Map<string,string>;
 
 // Functions
 

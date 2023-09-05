@@ -9,6 +9,7 @@ const port = Number(Deno.env.get("PORT")) || 3000;
 const app = new Oak.Application();
 
 export const games: Map<string,Game> = new Map<string,Game>;
+export const userGames: Map<string,string> = new Map<string,string>;
 
 // Command stuff
 
