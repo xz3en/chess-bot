@@ -96,13 +96,14 @@ export class Game {
                 if (square.color === "black"){
                     color = secondaryColor;
                 }
-                this.canvas.context.fillRect(square.x,square.y,this.board.size / 8,this.board.size / 8);
+                this.canvas.context.fillStyle = color;
+                this.canvas.context.fillRect(square.x,square.y,this.canvas.size / 8,this.canvas.size / 8);
             }
             if (!square.piece) continue;
             const imagePath = `assets/pieces/${square.piece.color}/${square.piece.type}.png`;
             try {
                 const image = await Canvas.loadImage(imagePath);
-                this.canvas.context.drawImage(image,square.x,square.y,this.board.size + 10,this.board.size + 10);
+                this.canvas.context.drawImage(image,square.x,square.y,this.canvas.size / 8,this.canvas.size / 8);
             } catch (err) {
                 console.log(err);
             }
