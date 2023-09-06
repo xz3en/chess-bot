@@ -1,11 +1,11 @@
-import { Harmony, Canvas } from "../deps.ts";
+import { Harmony, Canvas, fileLetters, stringToPosition } from "../deps.ts";
 import { games, userGames } from "../mods.ts";
 import CCommand from "../classes/customCommand.ts";
 
 // Types
 
-type PieceType = "pawn" | "rook" | "knight" | "bishop" | "king" | "queen"
-type PieceColor = "white" | "black"
+export type PieceType = "pawn" | "rook" | "knight" | "bishop" | "king" | "queen"
+export type PieceColor = "white" | "black"
 
 // Interfaces
 
@@ -18,13 +18,19 @@ interface Piece {
 
 class Square {
     piece?: Piece
+    x: number;
+    y: number;
     constructor(
-        public x: number,
-        public y: number,
+        public relX: number,
+        public relY: number,
         public position: string,
         public color: PieceColor
     ) {
+        const pos = stringToPosition(position);
+        this.x = pos.x;
+        this.y = pos.y;
 
+        console.log(`${this.x}, ${this.y}`);
     }
 }
 
@@ -68,6 +74,8 @@ export class Game {
         square.piece = piece;
     }
 
+
+
     async move(oldPosition: string,newPosition: string) {
         const square1 = this.board.get(oldPosition);
         const square2 = this.board.get(newPosition);
@@ -97,13 +105,13 @@ export class Game {
                     color = secondaryColor;
                 }
                 this.canvas.context.fillStyle = color;
-                this.canvas.context.fillRect(square.x,square.y,this.canvas.size / 8,this.canvas.size / 8);
+                this.canvas.context.fillRect(square.relX,square.relY,this.canvas.size / 8,this.canvas.size / 8);
             }
             if (!square.piece) continue;
             const imagePath = `assets/pieces/${square.piece.color}/${square.piece.type}.png`;
             try {
                 const image = await Canvas.loadImage(imagePath);
-                this.canvas.context.drawImage(image,square.x,square.y,this.canvas.size / 8,this.canvas.size / 8);
+                this.canvas.context.drawImage(image,square.relX,square.relY,this.canvas.size / 8,this.canvas.size / 8);
             } catch (err) {
                 console.log(err);
             }
@@ -131,7 +139,6 @@ const messageComponents: Harmony.MessageComponentData[] = [
 
 const primaryColor = "#eeeed5"; // White
 const secondaryColor = "#7c955b"; // Green
-const fileLetters = "abcdefgh";
 
 // Functions
 

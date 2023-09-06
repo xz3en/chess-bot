@@ -74,7 +74,7 @@ client.on("interactionCreate",async (ctx: Harmony.Interaction) => {
                     .setDescription("```" + err + "```")
                     .setColor(255,0,0)
             ]
-        })
+        });
     }
 });
 
