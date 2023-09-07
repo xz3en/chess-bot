@@ -58,7 +58,6 @@ client.on("interactionCreate",async (ctx: Harmony.Interaction) => {
     
             await command.execute(ctx);
         } else if (ctx.type === Harmony.InteractionType.MESSAGE_COMPONENT || ctx.type === Harmony.InteractionType.MODAL_SUBMIT) {
-            console.log(ctx.data);
             if (!ctx.data || !("custom_id" in ctx.data)) return;
             
             const func = (await import(`./buttons/${ctx.data.custom_id}.ts`)).default;

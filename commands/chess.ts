@@ -38,8 +38,6 @@ class Square {
         const pos = stringToPosition(position);
         this.rank = pos.x;
         this.file = pos.y;
-
-        console.log(`${this.rank}, ${this.file}`);
     }
 }
 
@@ -79,15 +77,9 @@ export class Game {
                 continue;
             }
             validPositions.push(pos1);
-            validPositions.push(...this.checkSquares(
-                positionToString({
-                    x:neighborSquare.rank, 
-                    y: neighborSquare.file
-                }),
-                pos2,
-                opponentColor
-            ));
         }
+
+        console.log(validPositions);
 
         return validPositions;
     }
@@ -100,8 +92,6 @@ export class Game {
         if (!square1.piece) return false;
 
         const validPositions = this.checkSquares(pos1,pos2,opponentColor);
-
-        console.log(validPositions);
 
         if (pos2 in validPositions) return true;
 
