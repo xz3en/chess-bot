@@ -111,8 +111,8 @@ export class Game {
                 if (
                     square1.piece.type === "pawn" &&
                     (
-                        (square1.piece.color === "white" && key !== "up") ||
-                        (square1.piece.color === "black" && key !== "down")
+                        (square1.piece.color === "white" && key !== "down") ||
+                        (square1.piece.color === "black" && key !== "up")
                     )
                 ) {
                     continue;
