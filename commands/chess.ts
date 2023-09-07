@@ -66,8 +66,6 @@ export class Game {
         const square1 = this.board.get(pos1);
         const square1moveData = this.moveData.get(pos1);
 
-        console.log(square1moveData);
-
         if (!square1moveData) return [];
 
         for (const neighborSquarePos of square1moveData) {
@@ -113,8 +111,6 @@ export class Game {
                 if (!this.board.get(positionToString(newPos))) continue;
                 newMoveData.push(positionToString(newPos));
             }
-
-            console.log(newMoveData);
 
             this.moveData.set(pos,newMoveData);
         }
