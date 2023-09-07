@@ -63,25 +63,27 @@ export class Game {
 
         const validPositions: string[] = [];
 
-        const square1 = this.board.get(pos1);
-        const square1moveData = this.moveData.get(pos1);
+        try {
+            const square1moveData = this.moveData.get(pos1);
 
-        if (!square1moveData) return [];
+            if (!square1moveData) return [];
 
-        for (const neighborSquarePos of square1moveData) {
-            const neighborSquare = this.board.get(neighborSquarePos);
-            if (!neighborSquare) {
-                continue;
+            for (const neighborSquarePos of square1moveData) {
+                const neighborSquare = this.board.get(neighborSquarePos);
+                if (!neighborSquare) {
+                    continue;
+                }
+                if (neighborSquare.piece && neighborSquare.piece.color !== opponentColor) {
+                    continue;
+                }
+                validPositions.push(neighborSquare.position);
+                validPositions.push(...this.checkSquares(neighborSquare.position,opponentColor));
             }
-            if (neighborSquare.piece) {
-                continue;
-            }
-            validPositions.push(neighborSquare.position);
-            //validPositions.push(...this.checkSquares(neighborSquare.position,opponentColor));
+
+            console.log(validPositions);
+        } catch (err) {
+            console.log(err);
         }
-
-        console.log(validPositions);
-
         return validPositions;
     }
 
