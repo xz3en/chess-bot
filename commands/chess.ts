@@ -79,14 +79,14 @@ export class Game {
                 continue;
             }
             validPositions.push(pos1);
-            return this.checkSquares(
+            validPositions.push(...this.checkSquares(
                 positionToString({
                     x:neighborSquare.rank, 
                     y: neighborSquare.file
                 }),
                 pos2,
                 opponentColor
-            );
+            ));
         }
 
         return validPositions;
