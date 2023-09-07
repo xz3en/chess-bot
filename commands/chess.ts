@@ -6,7 +6,7 @@ import {
     positionToString, 
     Vector2, 
     directionOffsets,
-    sumVectors
+    sleep
 } from "../deps.ts";
 import { games, userGames } from "../mods.ts";
 import CCommand from "../classes/customCommand.ts";
@@ -59,42 +59,40 @@ export class Game {
         this.canvas = new Board(600);
     }
 
-    checkSquares(pos1: string,opponentColor: PieceColor): string[] {
+    async checkSquares(pos1: string,opponentColor: PieceColor): Promise<string[]> {
 
         const validPositions: string[] = [];
 
-        try {
-            const square1moveData = this.moveData.get(pos1);
+        const square1moveData = this.moveData.get(pos1);
 
-            if (!square1moveData) return [];
+        if (!square1moveData) return [];
 
-            for (const neighborSquarePos of square1moveData) {
-                const neighborSquare = this.board.get(neighborSquarePos);
-                if (!neighborSquare) {
-                    continue;
-                }
-                if (neighborSquare.piece && neighborSquare.piece.color !== opponentColor) {
-                    continue;
-                }
-                validPositions.push(neighborSquare.position);
-                validPositions.push(...this.checkSquares(neighborSquare.position,opponentColor));
+        for (const neighborSquarePos of square1moveData) {
+            const neighborSquare = this.board.get(neighborSquarePos);
+            if (!neighborSquare) {
+                continue;
             }
-
-            console.log(validPositions);
-        } catch (err) {
-            console.log(err);
+            if (neighborSquare.piece && neighborSquare.piece.color !== opponentColor) {
+                continue;
+            }
+            validPositions.push(neighborSquare.position);
+            validPositions.push(...(await this.checkSquares(pos1,opponentColor)));
+            await sleep(0.2);
         }
+
+        console.log(validPositions);
+        
         return validPositions;
     }
 
-    checkIfMoveLegal(pos1: string,pos2: string,opponentColor: PieceColor) {
+    async checkIfMoveLegal(pos1: string,pos2: string,opponentColor: PieceColor) {
         const square1 = this.board.get(pos1);
         const square2 = this.board.get(pos2);
 
         if (!square1 || !square2) return false;
         if (!square1.piece) return false;
 
-        const validPositions = this.checkSquares(pos1,opponentColor);
+        const validPositions = await this.checkSquares(pos1,opponentColor);
 
         if (validPositions.includes(pos2)) return true;
 
@@ -150,7 +148,7 @@ export class Game {
         if (!square1 || !square2) return false;
         if (!square1.piece) return false;
         if (square2.piece && (square1.piece.color === square2.piece.color)) return false;
-        if (!this.checkIfMoveLegal(oldPosition,newPosition,"black")) return false;
+        if (!(await this.checkIfMoveLegal(oldPosition,newPosition,"black"))) return false;
 
         square2.piece = square1.piece;
         square1.piece = undefined;
