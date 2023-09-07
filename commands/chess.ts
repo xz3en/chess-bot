@@ -114,6 +114,8 @@ export class Game {
                 newMoveData.push(positionToString(newPos));
             }
 
+            console.log(newMoveData);
+
             this.moveData.set(pos,newMoveData);
         }
     }
