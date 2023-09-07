@@ -69,6 +69,7 @@ export class Game {
         if (!square1moveData) return [];
 
         for (const neighborSquarePos of square1moveData) {
+            console.log(positionToString(neighborSquarePos));
             const neighborSquare = this.board.get(positionToString(neighborSquarePos));
             if (!neighborSquare) {
                 continue;
