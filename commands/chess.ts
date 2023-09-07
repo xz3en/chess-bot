@@ -78,8 +78,8 @@ export class Game {
             if (neighborSquare.piece) {
                 continue;
             }
-            validPositions.push(pos1);
-            validPositions.push(...this.checkSquares(neighborSquare.position,opponentColor));
+            validPositions.push(neighborSquare.position);
+            //validPositions.push(...this.checkSquares(neighborSquare.position,opponentColor));
         }
 
         console.log(validPositions);
