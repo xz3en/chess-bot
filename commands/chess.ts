@@ -23,6 +23,18 @@ interface Piece {
     color: PieceColor
 }
 
+interface LegalMoves {
+    up: string[],
+    down: string[],
+    left: string[],
+    right: string[],
+
+    upleft: string[],
+    downleft: string[],
+    upright: string[],
+    downright: string[]
+}
+
 // Classes
 
 class Square {
@@ -52,37 +64,11 @@ class Board {
 
 export class Game {
     board: Map<string,Square> = new Map<string,Square>;
-    moveData: Map<string,string[]> = new Map<string,string[]>;
+    moveData: Map<string,LegalMoves> = new Map<string,LegalMoves>;
     canvas!: Board;
     
     constructor(public ctx: Harmony.Interaction) {
         this.canvas = new Board(600);
-    }
-
-    async checkSquares(pos1: string,opponentColor: PieceColor): Promise<string[]> {
-
-        const validPositions: string[] = [];
-
-        const square1moveData = this.moveData.get(pos1);
-
-        if (!square1moveData) return [];
-
-        for (const neighborSquarePos of square1moveData) {
-            const neighborSquare = this.board.get(neighborSquarePos);
-            if (!neighborSquare) {
-                continue;
-            }
-            if (neighborSquare.piece && neighborSquare.piece.color !== opponentColor) {
-                continue;
-            }
-            validPositions.push(neighborSquare.position);
-            validPositions.push(...(await this.checkSquares(pos1,opponentColor)));
-            await sleep(0.2);
-        }
-
-        console.log(validPositions);
-        
-        return validPositions;
     }
 
     async checkIfMoveLegal(pos1: string,pos2: string,opponentColor: PieceColor) {
@@ -92,24 +78,74 @@ export class Game {
         if (!square1 || !square2) return false;
         if (!square1.piece) return false;
 
-        const validPositions = await this.checkSquares(pos1,opponentColor);
+        const square1moveData = this.moveData.get(pos1);
 
-        if (validPositions.includes(pos2)) return true;
+        if (!square1moveData) return [];
+
+        for (const direction of Object.values(square1moveData)) {
+            for (const neighborSquarePos of direction) {
+                const neighborSquare = this.board.get(neighborSquarePos);
+                if (!neighborSquare) {
+                    break;
+                }
+                if (neighborSquare.piece && neighborSquare.piece.color !== opponentColor) {
+                    break;
+                }
+                if (neighborSquare.position === pos2) return true;
+            }
+        }
 
         return false;
     }
 
     precomputeMoves() {
         for (const [pos,square] of this.board.entries()) {
-            const newMoveData: string[] = [];
+            const newMoveData: LegalMoves = {
+                up: [],
+                down: [],
+                left: [],
+                right: [],
+
+                upleft: [],
+                downleft: [],
+                upright: [],
+                downright: []
+            };
 
             for (const direction of directionOffsets) {
-                const newPos: Vector2 = {
-                    x: square.rank + direction.x,
-                    y: square.file + direction.y
-                };
-                if (!this.board.get(positionToString(newPos))) continue;
-                newMoveData.push(positionToString(newPos));
+                for (let i = 1; i <= 64; i++) {
+                    const newPos: Vector2 = {
+                        x: square.rank + direction.x * i,
+                        y: square.file + direction.y * i
+                    };
+                    const stringPos = positionToString(newPos);
+                    if (!this.board.get(stringPos)) continue;
+                    if (newPos.x === 0) {
+                        if (newPos.y > 0) {
+                            newMoveData.up.push(stringPos);
+                        } else {
+                            newMoveData.down.push(stringPos);
+                        }
+                    } else if (newPos.y === 0) {
+                        if (newPos.x > 0) {
+                            newMoveData.right.push(stringPos);
+                        } else {
+                            newMoveData.left.push(stringPos);
+                        }
+                    } else {
+                        if (newPos.x > 0 && newPos.y > 0) {
+                            newMoveData.upright.push(stringPos);
+                        } else if (newPos.x > 0 && newPos.y < 0) {
+                            newMoveData.downright.push(stringPos);
+                        }
+
+                        if (newPos.x < 0 && newPos.y > 0) {
+                            newMoveData.upleft.push(stringPos);
+                        } else if (newPos.x < 0 && newPos.y < 0) {
+                            newMoveData.downleft.push(stringPos);
+                        }
+                    }
+                }
             }
 
             this.moveData.set(pos,newMoveData);
