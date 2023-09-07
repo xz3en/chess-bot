@@ -52,7 +52,7 @@ class Board {
 
 export class Game {
     board: Map<string,Square> = new Map<string,Square>;
-    moveData: Map<string,Vector2[]> = new Map<string,Vector2[]>;
+    moveData: Map<string,string[]> = new Map<string,string[]>;
     canvas!: Board;
     
     constructor(public ctx: Harmony.Interaction) {
@@ -66,10 +66,12 @@ export class Game {
         const square1 = this.board.get(pos1);
         const square1moveData = this.moveData.get(pos1);
 
+        console.log(square1moveData);
+
         if (!square1moveData) return [];
 
         for (const neighborSquarePos of square1moveData) {
-            const neighborSquare = this.board.get(positionToString(neighborSquarePos));
+            const neighborSquare = this.board.get(neighborSquarePos);
             if (!neighborSquare) {
                 continue;
             }
@@ -101,15 +103,15 @@ export class Game {
 
     precomputeMoves() {
         for (const [pos,square] of this.board.entries()) {
-            const newMoveData: Vector2[] = [];
+            const newMoveData: string[] = [];
 
             for (const direction of directionOffsets) {
-                const pos: Vector2 = {
+                const newPos: Vector2 = {
                     x: square.rank + direction.x,
                     y: square.file + direction.y
                 };
-                if (!this.board.get(positionToString(pos))) continue;
-                newMoveData.push(pos);
+                if (!this.board.get(positionToString(newPos))) continue;
+                newMoveData.push(positionToString(newPos));
             }
 
             this.moveData.set(pos,newMoveData);
