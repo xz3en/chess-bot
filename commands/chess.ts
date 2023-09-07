@@ -59,7 +59,7 @@ export class Game {
         this.canvas = new Board(600);
     }
 
-    checkSquares(pos1: string,pos2: string,opponentColor: PieceColor): string[] {
+    checkSquares(pos1: string,opponentColor: PieceColor): string[] {
 
         const validPositions: string[] = [];
 
@@ -69,7 +69,6 @@ export class Game {
         if (!square1moveData) return [];
 
         for (const neighborSquarePos of square1moveData) {
-            console.log(positionToString(neighborSquarePos));
             const neighborSquare = this.board.get(positionToString(neighborSquarePos));
             if (!neighborSquare) {
                 continue;
@@ -78,6 +77,7 @@ export class Game {
                 continue;
             }
             validPositions.push(pos1);
+            validPositions.push(...this.checkSquares(neighborSquare.position,opponentColor));
         }
 
         console.log(validPositions);
@@ -92,7 +92,7 @@ export class Game {
         if (!square1 || !square2) return false;
         if (!square1.piece) return false;
 
-        const validPositions = this.checkSquares(pos1,pos2,opponentColor);
+        const validPositions = this.checkSquares(pos1,opponentColor);
 
         if (pos2 in validPositions) return true;
 
@@ -365,6 +365,8 @@ async function createGame(id: string,ctx: Harmony.Interaction) {
             }
         );
     }
+
+    game.precomputeMoves();
 
     await game.updateBoard();
 
