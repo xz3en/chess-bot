@@ -94,7 +94,7 @@ export class Game {
 
         const validPositions = this.checkSquares(pos1,opponentColor);
 
-        if (pos2 in validPositions) return true;
+        if (validPositions.includes(pos2)) return true;
 
         return false;
     }
@@ -148,7 +148,6 @@ export class Game {
         if (!square1 || !square2) return false;
         if (!square1.piece) return false;
         if (square2.piece && (square1.piece.color === square2.piece.color)) return false;
-
         if (!this.checkIfMoveLegal(oldPosition,newPosition,"black")) return false;
 
         square2.piece = square1.piece;
