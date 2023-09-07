@@ -6,7 +6,7 @@ export interface Vector2 {
 }
 
 export function positionToString(position: Vector2): string {
-    return `${Number(fileLetters.at(position.x)) + 1}${position.y}`;
+    return `${fileLetters.at(position.x - 1)}${position.y}`;
 }
 
 export function stringToPosition(position: string): Vector2 {
