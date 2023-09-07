@@ -101,6 +101,8 @@ export class Game {
 
         const validPositions = this.checkSquares(pos1,pos2,opponentColor);
 
+        console.log(validPositions);
+
         if (pos2 in validPositions) return true;
 
         return false;

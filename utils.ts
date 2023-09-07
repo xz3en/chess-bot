@@ -17,7 +17,7 @@ export function stringToPosition(position: string): Vector2 {
 }
 
 export function sumVectors(vectors: Vector2[]): Vector2 {
-    let vectorsSummed = {
+    const vectorsSummed = {
         x: 0,
         y: 0
     };
