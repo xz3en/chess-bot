@@ -5,13 +5,27 @@ export interface Vector2 {
     y: number
 }
 
-export function positionToString(x: number,y: number): string {
-    return `${fileLetters.at(x)}${y}`;
+export function positionToString(position: Vector2): string {
+    return `${Number(fileLetters.at(position.x)) + 1}${position.y}`;
 }
 
 export function stringToPosition(position: string): Vector2 {
     return {
-        x: fileLetters.indexOf(position[0]),
+        x: fileLetters.indexOf(position[0]) + 1,
         y: Number(position[1])
     }
+}
+
+export function sumVectors(vectors: Vector2[]): Vector2 {
+    let vectorsSummed = {
+        x: 0,
+        y: 0
+    };
+
+    for (const vector of vectors) {
+        vectorsSummed.x += vector.x;
+        vectorsSummed.y += vector.y;
+    }
+
+    return vectorsSummed;
 }

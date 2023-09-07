@@ -18,9 +18,16 @@ export default async function execute(ctx: Harmony.Interaction) {
 
     if (!game) return;
 
-    game.move(startPos,endPos);
+    const valid = await game.move(startPos,endPos);
 
-    await ctx.respond({
-        type: Harmony.InteractionResponseType.DEFERRED_MESSAGE_UPDATE
-    });
+    if (valid) {
+        await ctx.respond({
+            type: Harmony.InteractionResponseType.DEFERRED_MESSAGE_UPDATE
+        });
+    } else {
+        await ctx.respond({
+            content: "This move is illegal",
+            ephemeral: true
+        });
+    }
 }

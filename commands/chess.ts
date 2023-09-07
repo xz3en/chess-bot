@@ -1,4 +1,13 @@
-import { Harmony, Canvas, fileLetters, stringToPosition } from "../deps.ts";
+import { 
+    Harmony, 
+    Canvas, 
+    fileLetters, 
+    stringToPosition, 
+    positionToString, 
+    Vector2, 
+    directionOffsets,
+    sumVectors
+} from "../deps.ts";
 import { games, userGames } from "../mods.ts";
 import CCommand from "../classes/customCommand.ts";
 
@@ -18,8 +27,8 @@ interface Piece {
 
 class Square {
     piece?: Piece
-    x: number;
-    y: number;
+    rank: number;
+    file: number;
     constructor(
         public relX: number,
         public relY: number,
@@ -27,10 +36,10 @@ class Square {
         public color: PieceColor
     ) {
         const pos = stringToPosition(position);
-        this.x = pos.x;
-        this.y = pos.y;
+        this.rank = pos.x;
+        this.file = pos.y;
 
-        console.log(`${this.x}, ${this.y}`);
+        console.log(`${this.rank}, ${this.file}`);
     }
 }
 
@@ -45,10 +54,73 @@ class Board {
 
 export class Game {
     board: Map<string,Square> = new Map<string,Square>;
+    moveData: Map<string,Vector2[]> = new Map<string,Vector2[]>;
     canvas!: Board;
     
     constructor(public ctx: Harmony.Interaction) {
         this.canvas = new Board(600);
+    }
+
+    checkSquares(pos1: string,pos2: string,opponentColor: PieceColor): string[] {
+
+        const validPositions: string[] = [];
+
+        const square1 = this.board.get(pos1);
+        const square1moveData = this.moveData.get(pos1);
+
+        if (!square1moveData) return [];
+
+        for (const neighborSquarePos of square1moveData) {
+            const neighborSquare = this.board.get(positionToString(neighborSquarePos));
+            if (!neighborSquare) {
+                continue;
+            }
+            if (neighborSquare.piece) {
+                continue;
+            }
+            validPositions.push(pos1);
+            return this.checkSquares(
+                positionToString({
+                    x:neighborSquare.rank, 
+                    y: neighborSquare.file
+                }),
+                pos2,
+                opponentColor
+            );
+        }
+
+        return validPositions;
+    }
+
+    checkIfMoveLegal(pos1: string,pos2: string,opponentColor: PieceColor) {
+        const square1 = this.board.get(pos1);
+        const square2 = this.board.get(pos2);
+
+        if (!square1 || !square2) return false;
+        if (!square1.piece) return false;
+
+        const validPositions = this.checkSquares(pos1,pos2,opponentColor);
+
+        if (pos2 in validPositions) return true;
+
+        return false;
+    }
+
+    precomputeMoves() {
+        for (const [pos,square] of this.board.entries()) {
+            const newMoveData: Vector2[] = [];
+
+            for (const direction of directionOffsets) {
+                const pos: Vector2 = {
+                    x: square.rank + direction.x,
+                    y: square.file + direction.y
+                };
+                if (!this.board.get(positionToString(pos))) continue;
+                newMoveData.push(pos);
+            }
+
+            this.moveData.set(pos,newMoveData);
+        }
     }
 
     updateMessage() {
@@ -83,6 +155,8 @@ export class Game {
         if (!square1 || !square2) return false;
         if (!square1.piece) return false;
         if (square2.piece && (square1.piece.color === square2.piece.color)) return false;
+
+        if (!this.checkIfMoveLegal(oldPosition,newPosition,"black")) return false;
 
         square2.piece = square1.piece;
         square1.piece = undefined;
