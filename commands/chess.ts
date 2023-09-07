@@ -82,7 +82,42 @@ export class Game {
 
         if (!square1moveData) return [];
 
-        for (const direction of Object.values(square1moveData)) {
+        for (const [key,direction] of Object.entries(square1moveData)) {
+            if (square1.piece) {
+                if (
+                    square1.piece.type === "bishop" &&
+                    (
+                        key === "up" ||
+                        key === "down" ||
+                        key === "left" ||
+                        key === "right"
+                    )
+                ) {
+                    continue;
+                }
+
+                if (
+                    square1.piece.type === "rook" &&
+                    (
+                        key === "upleft" ||
+                        key === "downleft" ||
+                        key === "upright" ||
+                        key === "downright"
+                    )
+                ) {
+                    continue;
+                }
+
+                if (
+                    square1.piece.type === "pawn" &&
+                    (
+                        (square1.piece.color === "white" && key !== "up") ||
+                        (square1.piece.color === "black" && key !== "down")
+                    )
+                ) {
+                    continue;
+                }
+            }
             for (const neighborSquarePos of direction) {
                 const neighborSquare = this.board.get(neighborSquarePos);
                 if (!neighborSquare) {
